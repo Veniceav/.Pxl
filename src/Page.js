@@ -1,0 +1,15 @@
+import React from 'react';
+import Banner from './components/Banner';
+import GameWindow from './GameWindow';
+import { Box, Flex, HStack } from '@chakra-ui/react';
+
+const Page = () => {
+  return (
+    <Box h="100vh" w="100vw" fontFamily="'VT323', monospace;">
+      <Banner />
+      <GameWindow />
+    </Box>
+  );
+};
+
+export default Page;
