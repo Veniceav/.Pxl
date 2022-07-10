@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import ActionWindow from './components/ActionWindow';
 import Inventory from './components/Inventory';
-import Banner from './components/Banner';
 
 const GameWindow = () => {
   return (

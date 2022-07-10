@@ -1,15 +1,39 @@
 import React from 'react';
 import { Flex, Box, HStack, Text } from '@chakra-ui/react';
+import upgradeData from '../lib/upgrades';
 
 const Card = props => {
   return (
-    <HStack w="100%" h="25%" margin="10px 0" border="1px solid grey">
-      <Box classname="item-img" w="30%" h="100%" bg="red">
-        blah
-      </Box>
-      <Flex className="item-details" w="70%" h="100%" bg="orange">
-        <Box className="item-name">{props.name}</Box>
-        <Box className="item-description">{props.description}</Box>
+    <HStack
+      w="100%"
+      h="25%"
+      margin="10px 0"
+      border="1px solid grey"
+      cursor="pointer"
+    >
+      <Box
+        classname="item-img"
+        w="30%"
+        h="100%"
+        bgImage={`url(${props.bg})`}
+        bgSize="contain"
+        bgRepeat="no-repeat"
+        bgPosition="center"
+      ></Box>
+      <Flex
+        direction="column"
+        align="center"
+        justify="center"
+        className="item-details"
+        w="70%"
+        h="100%"
+      >
+        <Box fontSize="2xl" className="item-name">
+          {props.name}
+        </Box>
+        <Box textAlign="center" className="item-description">
+          {props.description}
+        </Box>
       </Flex>
     </HStack>
   );
@@ -19,7 +43,6 @@ const Inventory = () => {
   return (
     <Flex
       className="inventory"
-      bg="whiteAlpha.900"
       direction="column"
       flex="1 1 25%"
       minW="300px"
@@ -34,20 +57,31 @@ const Inventory = () => {
           h="15%"
           borderBottom="1px solid grey"
         >
-          <Text
-            fontSize="6xl"
-            textTransform="uppercase"
-            pointerEvents="none"
-            onMouseEnter={'paddingBottom: 10px'}
-          >
+          <Text fontSize="6xl" textTransform="uppercase" pointerEvents="none">
             Upgrades
           </Text>
         </Flex>
         <Box className="item-cards" h="75%" m="5% 0">
-          <Card name="thing1" description="thing2" />
-          <Card name="thing1" description="thing2" />
-          <Card name="thing1" description="thing2" />
-          <Card name="thing1" description="thing2" />
+          <Card
+            bg={upgradeData.auto.image}
+            name={upgradeData.auto.name}
+            description={upgradeData.auto.description}
+          />
+          <Card
+            bg={upgradeData.boxingGloves.image}
+            name={upgradeData.boxingGloves.name}
+            description={upgradeData.boxingGloves.description}
+          />
+          <Card
+            bg={upgradeData.orbCompanion.image}
+            name={upgradeData.orbCompanion.name}
+            description={upgradeData.orbCompanion.description}
+          />
+          <Card
+            bg={upgradeData.busterSword.image}
+            name={upgradeData.busterSword.name}
+            description={upgradeData.busterSword.description}
+          />
         </Box>
       </Flex>
     </Flex>

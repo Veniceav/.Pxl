@@ -4,7 +4,13 @@ import { Box, Text } from '@chakra-ui/react';
 const Banner = () => {
   return (
     <Box h="5%" bgColor="blackAlpha.900" color="whiteAlpha.900">
-      <Text textAlign="center" fontSize="3xl" textTransform="Uppercase">
+      <Text
+        textAlign="center"
+        fontSize="3xl"
+        textTransform="Uppercase"
+        textDecoration="underline"
+        textUnderlineOffset={5}
+      >
         Pxl-Clkr
       </Text>
     </Box>
