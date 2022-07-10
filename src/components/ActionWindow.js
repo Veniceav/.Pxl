@@ -1,7 +1,8 @@
-import React from 'react';
-import { Box, Flex, Img, Text } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { Box, Flex, Img, Text, Button } from '@chakra-ui/react';
 import images from '../lib/images';
 
+//Enemy hitBox
 const TargetHitBox = props => {
   return (
     <Flex
@@ -12,21 +13,37 @@ const TargetHitBox = props => {
       color="whiteAlpha.900"
       align="center"
     >
-      <HitBoxDetails level="2" currentHp="87" maxHp="112" />
-      <Flex align="end" classname={props.name} h="80%" w="100%">
-        <Box
+      <Box className="charInfo">
+        <Box className="targetLevel" margin="0 5px">
+          Lvl. {props.level}
+        </Box>
+        <Flex>
+          <Box className="hpBar" margin="0 5px">
+            HpBar
+          </Box>
+          <Box className="hpNum">
+            {props.health}/{props.maxHealth}
+          </Box>
+        </Flex>
+      </Box>
+      <Flex align="end" className="target" h="80%" w="100%">
+        <Flex
+          display="block"
           h="300px"
           w="300px"
           bgSize="contain"
           bgRepeat="no-repeat"
           bgPosition="bottom"
           bgImg={images.targets.ghost}
-        ></Box>
+          onClick={props.click}
+          cursor="crosshair"
+        ></Flex>
       </Flex>
     </Flex>
   );
 };
 
+//Player Character hitbox
 const PlayerHitBox = props => {
   return (
     <Flex
@@ -37,8 +54,7 @@ const PlayerHitBox = props => {
       color="whiteAlpha.900"
       align="center"
     >
-      <HitBoxDetails level="2" currentHp="87" maxHp="112" />
-      <Flex align="end" classname={props.name} h="80%" w="100%">
+      <Flex align="end" className="player" h="80%" w="100%">
         <Box
           h="300px"
           w="300px"
@@ -51,25 +67,65 @@ const PlayerHitBox = props => {
   );
 };
 
-const HitBoxDetails = props => {
-  return (
-    <Box className="charInfo">
-      <Box className="targetLevel" margin="0 5px">
-        Lvl. {props.level}
-      </Box>
-      <Flex>
-        <Box className="hpBar" margin="0 5px">
-          HpBar
-        </Box>
-        <Box className="hpNum">
-          {props.currentHp}/{props.maxHp}
-        </Box>
-      </Flex>
-    </Box>
-  );
-};
-
 const ActionWindow = () => {
+  const [health, setHealth] = useState(10);
+  const [dps, setDps] = useState(2);
+  const [cells, setCells] = useState(0);
+  const [maxHealth, setMaxHealth] = useState(health);
+  const [level, setLevel] = useState(1);
+
+  const newGame = () => {
+    setDps(2);
+    setCells(0);
+    setLevel(1);
+    getHealth();
+  };
+
+  //onClick functionality
+  const click = () => {
+    let newHp = health - dps;
+    setHealth(newHp);
+    console.log(newHp + ' Hp left');
+
+    if (newHp <= 0) {
+      console.log('Enemy Taken Down!');
+      giveCells();
+      setLevel(level + 1);
+      respawn();
+    } else {
+      setHealth(newHp);
+    }
+  };
+
+  //Cells(currency) given on kills
+  const giveCells = () => {
+    let cellsGiven = Math.round(maxHealth / 2);
+    console.log(cellsGiven + 'Cells Recieved');
+    setCells(cellsGiven + cells);
+  };
+
+  //Hp math
+  const getHealth = () => {
+    let newMaxHp = Math.round(4 * (level - 1 + 1.55 ** (level - 1.55)));
+    setHealth(newMaxHp);
+    setMaxHealth(newMaxHp);
+    console.log('Enemy Health: ' + newMaxHp);
+  };
+
+  //respawn Enemy
+  const respawn = () => {
+    getHealth();
+    //add enemy image change
+  };
+
+  const getMaxHealth = () => {
+    setMaxHealth(health);
+  };
+
+  useEffect(() => {
+    newGame();
+  }, []);
+
   return (
     <Flex
       className="Main"
@@ -98,7 +154,12 @@ const ActionWindow = () => {
           align="end"
         >
           <PlayerHitBox />
-          <TargetHitBox />
+          <TargetHitBox
+            level={level}
+            health={health}
+            maxHealth={maxHealth}
+            click={click}
+          />
         </Flex>
       </Flex>
       <Flex
@@ -115,4 +176,5 @@ const ActionWindow = () => {
     </Flex>
   );
 };
+
 export default ActionWindow;
