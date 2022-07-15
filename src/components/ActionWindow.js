@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Box, Flex, Img, Text, Button } from '@chakra-ui/react';
+import { GameDataContext } from '../context/GameDataContext';
 import images from '../lib/images';
 
 //Enemy hitBox
@@ -68,11 +69,11 @@ const PlayerHitBox = props => {
 };
 
 const ActionWindow = () => {
-  const [health, setHealth] = useState(10);
-  const [dps, setDps] = useState(2);
-  const [cells, setCells] = useState(0);
-  const [maxHealth, setMaxHealth] = useState(health);
-  const [level, setLevel] = useState(1);
+  const { health, setHealth } = useContext(GameDataContext);
+  const { dps, setDps } = useContext(GameDataContext);
+  const { cells, setCells } = useContext(GameDataContext);
+  const { maxHealth, setMaxHealth } = useContext(GameDataContext);
+  const { level, setLevel } = useContext(GameDataContext);
 
   const newGame = () => {
     setDps(2);
@@ -118,10 +119,6 @@ const ActionWindow = () => {
     //add enemy image change
   };
 
-  const getMaxHealth = () => {
-    setMaxHealth(health);
-  };
-
   useEffect(() => {
     newGame();
   }, []);
@@ -161,17 +158,6 @@ const ActionWindow = () => {
             click={click}
           />
         </Flex>
-      </Flex>
-      <Flex
-        className="StatDisplay"
-        h="10%"
-        bgColor="blackAlpha.900"
-        color="whiteAlpha.900"
-      >
-        {/*Money Spent, Clicks Made, Upgrades, Purchased, dmg multiplier, targets killed */}
-        <Text width="100%" textAlign="center">
-          stats
-        </Text>
       </Flex>
     </Flex>
   );
