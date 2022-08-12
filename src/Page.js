@@ -5,7 +5,13 @@ import { Box, Flex, HStack } from '@chakra-ui/react';
 
 const Page = () => {
   return (
-    <Box h="100vh" w="100vw" fontFamily="'VT323', monospace;">
+    <Box
+      h="100vh"
+      w="100vw"
+      bg="#111"
+      color="whiteAlpha.800"
+      fontFamily="'VT323', monospace;"
+    >
       <Banner />
       <GameWindow />
     </Box>

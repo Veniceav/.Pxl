@@ -10,21 +10,38 @@ const GameWindow = () => {
   const [cells, setCells] = useState(0);
   const [maxHealth, setMaxHealth] = useState(health);
   const [level, setLevel] = useState(1);
+
+  const [params, setParams] = useState({
+    cells: 0,
+    dps: 2,
+    health: 10,
+    level: 1,
+    maxHealth: 10,
+  });
+
+  const setProp = (prop, value) => {
+    setParams(p => ({
+      ...p,
+      [prop]: value,
+    }));
+  };
+
   return (
-    <Flex bg="whiteAlpha.700" h="95%" w="100%" flexWrap="wrap">
+    <Flex bgColor="#111" h="95%" w="100%" flexWrap="wrap">
       <GameDataContext.Provider
-        value={{
-          health,
-          setHealth,
-          dps,
-          setDps,
-          cells,
-          setCells,
-          maxHealth,
-          setMaxHealth,
-          level,
-          setLevel,
-        }}
+        value={[params, setProp, setParams]}
+        // value={{
+        //   health,
+        //   setHealth,
+        //   dps,
+        //   setDps,
+        //   cells,
+        //   setCells,
+        //   maxHealth,
+        //   setMaxHealth,
+        //   level,
+        //   setLevel,
+        // }}
       >
         <ActionWindow />
         <Inventory />

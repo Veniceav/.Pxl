@@ -3,8 +3,9 @@ import { Box, Text } from '@chakra-ui/react';
 
 const Banner = () => {
   return (
-    <Box h="5%" bgColor="blackAlpha.900" borderBottom="1px solid gray">
+    <Box h="5%">
       <Text
+        letterSpacing="7px"
         textAlign="center"
         fontSize="3xl"
         textTransform="Uppercase"

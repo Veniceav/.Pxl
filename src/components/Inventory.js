@@ -1,4 +1,4 @@
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useEffect } from 'react';
 import {
   Flex,
   Box,
@@ -13,29 +13,88 @@ import {
 } from '@chakra-ui/react';
 import upgradeData from '../lib/upgrades';
 import { GameDataContext } from '../context/GameDataContext';
-import upgrades from '../lib/upgrades';
 
 const transition = '0.3s ease-out all';
 const retroRed = '#EC183F';
 const retroPurple = '#7A18EC';
 
 const BuyBtn = props => {
-  const { cells, setCells } = useContext(GameDataContext);
   const [isClicked, setIsClicked] = useState(false);
+  const {
+    cells,
+    setCells,
+    dps,
+    setDps,
+    health,
+    setHealth,
+    purchased,
+    setPurchased,
+  } = useContext(GameDataContext);
+  const [autoPurchased, setAutoPurchased] = useState(false);
+  const [params, setParam, setParams] = useContext(GameDataContext);
+  const { cost } = props;
+  const { dmg } = props;
+  const { name } = props;
+
+  const purchaseItem = () => {
+    if (params.cells >= cost) {
+      setParam('cells', params.cells - cost);
+      setIsClicked(clicked => !clicked);
+      setParam('dps', params.dps + dmg);
+      if (name === 'Auto Clicker') {
+        upgradeData.auto.purchased = true;
+        console.log(autoPurchased);
+      }
+    } else {
+      const difference = cost - params.cells;
+      alert('You need ' + difference + ' more cells!');
+    }
+  };
+
+  const giveCells = () => {
+    let cellsGiven = Math.round(params.maxHealth / 2);
+    console.log(cellsGiven + 'Cells Recieved');
+    setParam('cells', params.cells + cellsGiven);
+  };
+
+  //Hp math
+  const getHealth = () => {
+    let newMaxHp = Math.round(
+      4 * (params.level - 1 + 1.55 ** (params.level - 1.55))
+    );
+    setParam('health', newMaxHp);
+    setParam('maxHealth', newMaxHp);
+    console.log('Enemy Health: ' + newMaxHp);
+  };
+
+  //respawn Enemy
+  const respawn = () => {
+    getHealth();
+    //add enemy image change
+  };
+
+  useEffect(() => {
+    if (upgradeData.auto.purchased === true) {
+      console.log('purchased');
+      setInterval(() => {
+        setParam('health', params.health - 1);
+      }, 500);
+    }
+    if (params.health <= 0) {
+      console.log('Enemy Taken Down!');
+      giveCells();
+      setParam('level', params.level + 1);
+      respawn();
+    }
+  }, []);
 
   const handleClick = () => {
-    setIsClicked(clicked => !clicked);
+    purchaseItem();
   };
-  /*const purchaseItem = item => {
-    const cellsBanked = cells;
-    upgrades[item].purchased = true;
-    cellsBanked = cellsBanked - upgrades[item].cost;
-    setCells(cellsBanked);
-  };*/
 
   return (
     <Button
-      disabled={isClicked ? true : false}
+      disabled={params.cells < cost || isClicked}
       variant="outline"
       colorScheme="white"
       position="relative"
@@ -55,9 +114,10 @@ const BuyBtn = props => {
         borderLeft: '1px solid',
         borderBottom: '2px solid',
       }}
-      onClick={handleClick}
+      onClick={() => handleClick()}
     >
-      {isClicked ? 'Sold' : `${props.cost} cells`}
+      {/*Text inside of btn */}
+      {isClicked ? 'Sold' : `${cost} cells`}
     </Button>
   );
 };
@@ -100,7 +160,7 @@ const Card = props => {
         _hover={{ bg: 'none' }}
       >
         <Flex
-          classname="item-img"
+          className="item-img"
           justify="center"
           align="center"
           w="30%"
@@ -130,7 +190,7 @@ const Card = props => {
           >
             {props.description}
           </Box>
-          <BuyBtn cost={props.cost} />
+          <BuyBtn cost={props.cost} name={props.name} dmg={props.baseDPS} />
         </Flex>
       </AccordionPanel>
     </AccordionItem>
@@ -179,6 +239,8 @@ const Bank = props => {
 const Inventory = () => {
   const { cells, setCells } = useContext(GameDataContext);
   const { dps, setDps } = useContext(GameDataContext);
+  const [params, setParam, setParams] = useContext(GameDataContext);
+
   return (
     <Flex
       className="inventory"
@@ -186,6 +248,7 @@ const Inventory = () => {
       flex="1 1 25%"
       minW="300px"
       bgColor="#111"
+      borderTop="1px solid rgba(200, 0, 0, .2)"
     >
       <Flex direction="column" className="upgrades" minH="300px" h="100%">
         <Flex
@@ -202,7 +265,8 @@ const Inventory = () => {
         </Flex>
         <Accordion allowToggle className="item-cards">
           {Object.keys(upgradeData).map(u => {
-            const { image, name, description, cost } = upgradeData[u];
+            const { image, name, description, cost, baseDPS, purchased } =
+              upgradeData[u];
             return (
               <Card
                 key={name}
@@ -210,12 +274,14 @@ const Inventory = () => {
                 name={name}
                 description={description}
                 cost={cost}
+                baseDPS={baseDPS}
+                purchased={purchased}
               />
             );
           })}
         </Accordion>
       </Flex>
-      <Stats cells={cells}></Stats>
+      <Stats cells={params.cells}></Stats>
     </Flex>
   );
 };

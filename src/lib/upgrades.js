@@ -1,10 +1,10 @@
 import images from './images';
 
-const upgrades = {
+let upgrades = {
   auto: {
     name: 'Auto Clicker',
     description: 'An incremental auto Clicker',
-    baseDPS: 0,
+    baseDPS: 10,
     cost: 50,
     currentLevel: 0,
     purchased: false,

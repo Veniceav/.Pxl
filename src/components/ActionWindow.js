@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Box, Flex, Img, Text, Button } from '@chakra-ui/react';
 import { GameDataContext } from '../context/GameDataContext';
 import images from '../lib/images';
@@ -74,42 +74,44 @@ const ActionWindow = () => {
   const { cells, setCells } = useContext(GameDataContext);
   const { maxHealth, setMaxHealth } = useContext(GameDataContext);
   const { level, setLevel } = useContext(GameDataContext);
-
+  const [params, setParam, setParams] = useContext(GameDataContext);
   const newGame = () => {
-    setDps(2);
-    setCells(0);
-    setLevel(1);
+    setParam('dps', 2);
+    setParam('cells', 100);
+    setParam('level', 3);
     getHealth();
   };
 
   //onClick functionality
   const click = () => {
-    let newHp = health - dps;
-    setHealth(newHp);
+    let newHp = params.health - params.dps;
+    setParam('health', newHp);
     console.log(newHp + ' Hp left');
 
     if (newHp <= 0) {
       console.log('Enemy Taken Down!');
       giveCells();
-      setLevel(level + 1);
+      setParam('level', params.level + 1);
       respawn();
     } else {
-      setHealth(newHp);
+      setParam('health', newHp);
     }
   };
 
   //Cells(currency) given on kills
   const giveCells = () => {
-    let cellsGiven = Math.round(maxHealth / 2);
+    let cellsGiven = Math.round(params.maxHealth / 2);
     console.log(cellsGiven + 'Cells Recieved');
-    setCells(cellsGiven + cells);
+    setParam('cells', cellsGiven + params.cells);
   };
 
   //Hp math
   const getHealth = () => {
-    let newMaxHp = Math.round(4 * (level - 1 + 1.55 ** (level - 1.55)));
-    setHealth(newMaxHp);
-    setMaxHealth(newMaxHp);
+    let newMaxHp = Math.round(
+      4 * (params.level - 1 + 1.55 ** (params.level - 1.55))
+    );
+    setParam('health', newMaxHp);
+    setParam('maxHealth', newMaxHp);
     console.log('Enemy Health: ' + newMaxHp);
   };
 
@@ -137,7 +139,7 @@ const ActionWindow = () => {
       <Flex
         direction="column"
         className="InteractiveWindow"
-        Flex="5 1 750px"
+        flex="5 1 750px"
         h="90%"
         justify="flex-end"
       >
@@ -152,9 +154,9 @@ const ActionWindow = () => {
         >
           <PlayerHitBox />
           <TargetHitBox
-            level={level}
-            health={health}
-            maxHealth={maxHealth}
+            level={params.level}
+            health={params.health}
+            maxHealth={params.maxHealth}
             click={click}
           />
         </Flex>

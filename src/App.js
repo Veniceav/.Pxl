@@ -1,18 +1,22 @@
-import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  theme,
-} from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { ChakraProvider, Box } from '@chakra-ui/react';
+import theme from './lib/theme';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import Page from './Page'
+import Page from './Page';
+import LoadingPage from './components/LoadingPage';
 
 function App() {
+  const [play, setPlay] = useState(false);
+
   return (
     <ChakraProvider theme={theme}>
-      <Box>
-        <Page />
-      </Box>
+      {play ? (
+        <Box>
+          <Page />
+        </Box>
+      ) : (
+        <LoadingPage setPlay={setPlay} />
+      )}
     </ChakraProvider>
   );
 }
