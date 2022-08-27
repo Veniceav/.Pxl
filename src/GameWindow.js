@@ -1,22 +1,24 @@
 import { React, useState } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { GameDataContext } from './context/GameDataContext';
 import ActionWindow from './components/ActionWindow';
 import Inventory from './components/Inventory';
 
 const GameWindow = () => {
-  const [health, setHealth] = useState(10);
-  const [dps, setDps] = useState(2);
-  const [cells, setCells] = useState(0);
-  const [maxHealth, setMaxHealth] = useState(health);
-  const [level, setLevel] = useState(1);
-
   const [params, setParams] = useState({
     cells: 0,
     dps: 2,
-    health: 10,
-    level: 1,
-    maxHealth: 10,
+    currentEnemyHp: 1,
+    enemyLevel: 3,
+    enemyHp: 1,
+    enemyDamage: 1,
+    enemyActionBar: 0,
+    enemyBarBase: 1,
+    playerActionBar: 0,
+    playerBarBase: 2,
+    playerLevel: 1,
+    playerHp: 10,
+    playerCurrentHp: 10,
   });
 
   const setProp = (prop, value) => {

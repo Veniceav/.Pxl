@@ -25,7 +25,9 @@ const LoadingPage = ({ setPlay }) => {
   }, [progress]);
   return (
     <Flex
-      bg="#222"
+      opacity={bootUp === true ? 0 : 1}
+      transition="1s ease-in"
+      bg="game.base"
       h="100vh"
       w="100vw"
       justify="center"
@@ -52,6 +54,7 @@ const LoadingPage = ({ setPlay }) => {
             transition="0.2s linear"
             textShadow={overflow === true ? '0px 20px 8px grey' : ''}
             mb="30px"
+            userSelect="none"
           >
             Pxl-Clkr
           </Text>
@@ -64,7 +67,6 @@ const LoadingPage = ({ setPlay }) => {
           bg="white"
           h={overflow === true ? '30%' : '0%'}
           transition="0.2s linear all"
-          //   border={overflow === true ? '1px solid white' : ''}
           w="50%"
         ></Box>
         <FlagSpinner size={90} color="#fff" loading={loading} />
@@ -105,11 +107,30 @@ const LoadingPage = ({ setPlay }) => {
         {loading === true && (
           <Text
             mt="25px"
-            fontFamily="poppins"
+            fontFamily="'VT323', monospace;"
+            fontSize={24}
             fontWeight="medium"
             color="white"
           >
-            {progress} %
+            {progress} % {progress >= 11 && 'L'}
+            {progress >= 20 && 'O'}
+            {progress >= 29 && 'A'}
+            {progress >= 38 && 'D'}
+            {progress >= 47 && 'I'}
+            {progress >= 56 && 'N'}
+            {progress >= 65 && 'G'}
+            {progress >= 75 && '.'}
+            {progress >= 80 && '.'}
+            {progress >= 85 && '.'}
+            {progress >= 87 && '.'}
+            {progress >= 91 && '.'}
+            {progress >= 93 && '.'}
+            {progress >= 94 && '.'}
+            {progress >= 95 && '.'}
+            {progress >= 96 && '.'}
+            {progress >= 97 && '!'}
+            {progress >= 98 && '!'}
+            {progress >= 99 && '!'}
           </Text>
         )}
       </Flex>

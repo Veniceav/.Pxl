@@ -156,7 +156,7 @@ const Card = props => {
         w="100%"
         flexDirection="row"
         display="flex"
-        pt="20px"
+        pt="10px"
         _hover={{ bg: 'none' }}
       >
         <Flex

@@ -11,9 +11,11 @@ const theme = extendTheme({
   },
   colors: {
     game: {
-      base: '#222',
+      base: '#111',
       retroRed: '#EC183F',
       retroPurple: '#7A18EC',
+      retroBlue: '#0783F8',
+      retroGreen: '#01FF9F',
     },
   },
 });

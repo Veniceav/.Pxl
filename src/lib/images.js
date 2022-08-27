@@ -4,11 +4,14 @@ import autoClick from '../assets/images/upgrades/autoclick.png';
 import boxingGloves from '../assets/images/upgrades/boxinggloves.png';
 import orb from '../assets/images/upgrades/orbIcon.png';
 import sword from '../assets/images/upgrades/sword.png';
+import char from '../assets/images/mainchar.png';
+import moon from '../assets/images/moon.png';
 
 const images = {
-  player: {},
+  player: { char },
   backgrounds: {
     forestBg,
+    moon,
   },
   upgrades: {
     autoClick,
