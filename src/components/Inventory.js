@@ -210,8 +210,29 @@ const Stats = props => {
 };
 
 const Bank = props => {
+  const [params] = useContext(GameDataContext);
   return (
     <Flex w="100%" h="100px" direction="column" align="center" justify="center">
+      <Box
+        w="50%"
+        border={`1px solid ${retroPurple}`}
+        fontFamily="Poppins"
+        letterSpacing="2px"
+        lineHeight="5"
+        p="5px"
+      >
+        <Text
+          color="whiteAlpha.800"
+          fontSize="xl"
+          textAlign="center"
+          textTransform="uppercase"
+        >
+          Exp
+        </Text>
+        <Text textAlign="center" fontSize="xl">
+          {params.currentExp}/{params.expNeeded}
+        </Text>
+      </Box>
       <Box
         w="50%"
         border={`1px solid ${retroRed}`}

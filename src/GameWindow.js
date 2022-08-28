@@ -7,6 +7,8 @@ import Inventory from './components/Inventory';
 const GameWindow = () => {
   const [params, setParams] = useState({
     cells: 0,
+    currentExp: 0,
+    expNeeded: 0,
     dps: 2,
     currentEnemyHp: 1,
     enemyLevel: 3,

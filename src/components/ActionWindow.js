@@ -136,17 +136,17 @@ const SpAtkContainer = props => {
     const { setSpecialReady } = props;
     const currentHp = params.currentEnemyHp - specialAtkDmg(value);
     setParam('currentEnemyHp', currentHp);
+    setParam('playerActionBar', 0);
+    setSpecialReady(false);
+    setProgress(true);
     if (currentHp <= 0) {
       payout();
-      setParam('playerActionBar', 0);
-      setSpecialReady(false);
-      setProgress(true);
     }
   };
 
   //for healing based specials
   const specialHlgValue = value => {
-    const hlgValue = value * params.dps;
+    const hlgValue = value * params.playerLevel;
     return hlgValue;
   };
 
@@ -408,7 +408,7 @@ const ActionWindow = () => {
           };
         });
       }
-    }, 1000);
+    }, 200);
     if (!buildup) {
       clearInterval(interval);
     }
@@ -463,10 +463,11 @@ const ActionWindow = () => {
     }
   };
 
-  //payout cells n respawn enemy
+  //payout cells, exp n respawn enemy
   const payout = () => {
     console.log('Enemy Taken Down!');
     giveCells();
+    giveExp();
     setParam('enemyActionBar', 0);
     setBuildup(false);
     const newLevel = params.enemyLevel + 1;
@@ -487,11 +488,62 @@ const ActionWindow = () => {
     setParam('cells', cellsGiven + params.cells);
   };
 
+  const giveExp = () => {
+    const expGiven = Math.round((params.enemyHp * 0.55) / 2);
+    console.log(expGiven + ' Exp Recieved');
+    setParam('currentExp', params.currentExp + expGiven);
+  };
+
+  useEffect(() => {
+    if (params.currentExp >= params.expNeeded) {
+      setParam('currentExp', 0);
+      const expNeeded = Math.round((params.enemyHp * 1.75) / 2);
+      setParams(p => {
+        const newLevel = params.playerLevel + 1;
+        return {
+          ...p,
+          playerLevel: newLevel,
+          expNeeded: expNeeded,
+        };
+      });
+      getPlayerHp();
+      getPlayerDps();
+    }
+  });
+
+  //player Hp math
+  const getPlayerHp = () => {
+    const newMaxHp = Math.round(
+      // 4 * (params.enemyLevel - 1 + 1.55 ** (params.enemyLevel - 1.55)
+      Math.round(params.playerLevel * 4)
+    );
+    setParams(p => {
+      const newHp = newMaxHp;
+      return {
+        ...p,
+        playerHp: newHp,
+        playerCurrentHp: newHp,
+      };
+    });
+  };
+
+  //player damage Calc
+  const getPlayerDps = () => {
+    const newDpsVal =
+      Math.round(((0.55 * params.playerLevel) / 2) * 1.17) + params.dps;
+    setParams(p => {
+      const newVal = newDpsVal;
+      return {
+        ...p,
+        dps: newVal,
+      };
+    });
+  };
+
   //Enemy Hp math
   const getHealth = () => {
     const newMaxHp = Math.round(
-      // 4 * (params.enemyLevel - 1 + 1.55 ** (params.enemyLevel - 1.55)
-      Math.round(params.enemyLevel * 4)
+      4 * (params.enemyLevel - 1 + 1.55 ** (params.enemyLevel - 1.55))
     );
     setParams(p => {
       const newHp = newMaxHp;
@@ -540,9 +592,12 @@ const ActionWindow = () => {
   const newGame = () => {
     setParam('dps', 2);
     setParam('cells', 100);
-    setParam('playerLevel', 1);
+    setParam('playerLevel', 3);
+    getPlayerHp();
+    getPlayerDps();
     getHealth();
     getDamage();
+    setParam('expNeeded', Math.round(params.enemyHp * 4));
   };
 
   useEffect(() => {
