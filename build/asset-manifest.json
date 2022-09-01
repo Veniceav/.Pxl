@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/pxl-clckr/static/js/main.790a92dc.js",
+    "static/media/Background.png": "/pxl-clckr/static/media/Background.a6cbed8ccd3015384b16.png",
+    "static/media/ghost2.png": "/pxl-clckr/static/media/ghost2.41eebd5369fb556240ac.png",
+    "static/media/moon.png": "/pxl-clckr/static/media/moon.1403978876f8e061d2f5.png",
+    "index.html": "/pxl-clckr/index.html",
+    "main.790a92dc.js.map": "/pxl-clckr/static/js/main.790a92dc.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.790a92dc.js"
+  ]
+}
