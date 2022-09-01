@@ -4,7 +4,7 @@ import autoClick from '../assets/images/upgrades/autoclick.png';
 import boxingGloves from '../assets/images/upgrades/boxinggloves.png';
 import orb from '../assets/images/upgrades/orbIcon.png';
 import sword from '../assets/images/upgrades/sword.png';
-import char from '../assets/images/mainchar.png';
+import char from '../assets/images/avatarsheetidle.png';
 import moon from '../assets/images/moon.png';
 
 const images = {

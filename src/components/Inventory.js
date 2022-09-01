@@ -197,59 +197,48 @@ const Card = props => {
   );
 };
 
-const Stats = props => {
-  return (
-    <VStack w="100%" maxH="100%">
-      <Text fontSize="4xl" color={retroRed}>
-        Stats
-      </Text>
-      <VStack textAlign="left">DPS Bank</VStack>
-      <Bank cells={props.cells} />
-    </VStack>
-  );
-};
-
 const Bank = props => {
   const [params] = useContext(GameDataContext);
   return (
-    <Flex w="100%" h="100px" direction="column" align="center" justify="center">
+    <Flex direction="column" align="center" justify="center">
       <Box
-        w="50%"
-        border={`1px solid ${retroPurple}`}
-        fontFamily="Poppins"
+        w="100%"
+        borderBottom={`1px solid ${retroPurple}`}
         letterSpacing="2px"
         lineHeight="5"
-        p="5px"
+        p="px"
+        mb="10px"
       >
         <Text
           color="whiteAlpha.800"
-          fontSize="xl"
+          fontSize="l"
           textAlign="center"
+          fontFamily="Poppins"
           textTransform="uppercase"
         >
           Exp
         </Text>
-        <Text textAlign="center" fontSize="xl">
+        <Text textAlign="center" fontSize="2xl">
           {params.currentExp}/{params.expNeeded}
         </Text>
       </Box>
       <Box
-        w="50%"
-        border={`1px solid ${retroRed}`}
-        fontFamily="Poppins"
+        w="100%"
+        borderBottom={`1px solid ${retroRed}`}
         letterSpacing="2px"
         lineHeight="5"
         p="5px"
       >
         <Text
           color="whiteAlpha.800"
-          fontSize="xl"
+          fontSize="l"
           textAlign="center"
+          fontFamily="Poppins"
           textTransform="uppercase"
         >
           Bank
         </Text>
-        <Text textAlign="center" fontSize="xl">
+        <Text textAlign="center" fontSize="2xl" textTransform="uppercase">
           Cells: {props.cells}
         </Text>
       </Box>
@@ -302,7 +291,7 @@ const Inventory = () => {
           })}
         </Accordion>
       </Flex>
-      <Stats cells={params.cells}></Stats>
+      <Bank cells={params.cells}></Bank>
     </Flex>
   );
 };

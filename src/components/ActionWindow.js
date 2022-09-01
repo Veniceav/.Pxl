@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import styled, { keyframes } from 'styled-components';
 import {
   Box,
   Flex,
@@ -14,6 +15,7 @@ import {
 import { GameDataContext } from '../context/GameDataContext';
 import special from '../lib/specialAttacks';
 import images from '../lib/images';
+import PlayerAnimation from '../lib/PlayerAnimation';
 
 //Enemy hitBox
 const TargetHitBox = props => {
@@ -71,6 +73,7 @@ const TargetHitBox = props => {
 //Player Character hitbox
 const PlayerHitBox = props => {
   const [params, setParam, setParams] = useContext(GameDataContext);
+
   return (
     <Flex
       fontSize="xl"
@@ -103,18 +106,7 @@ const PlayerHitBox = props => {
         </Box>
       </Flex>
       <Flex align="end" className="player" h="80%" w="100%">
-        <Box
-          position="relative"
-          top={-10}
-          left={-19.9}
-          h="270px"
-          w="270px"
-          bgImage={images.player.char}
-          bgSize="contain"
-          bgRepeat="no-repeat"
-          bgPosition="bottom"
-          style={{ imageRendering: 'pixelated' }}
-        ></Box>
+        <PlayerAnimation />
       </Flex>
     </Flex>
   );
