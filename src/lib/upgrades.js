@@ -1,14 +1,16 @@
 import images from './images';
+import OrbChargedAnimation from '../lib/animations/orbChargedAnimation';
 
 let upgrades = {
   auto: {
-    name: 'Auto Clicker',
-    description: 'An incremental auto Clicker',
-    baseDPS: 10,
+    name: 'Spark of Genius',
+    description: 'Channel and Generate more energy.',
+    stat: '5% Atk Dmg',
+    baseDPS: 1.05,
     cost: 50,
     currentLevel: 0,
     purchased: false,
-    image: `${images.upgrades.autoClick}`,
+    image: <OrbChargedAnimation />,
     boosters: [
       {
         label: 'Extra hand',
@@ -21,9 +23,9 @@ let upgrades = {
   },
 
   boxingGloves: {
-    name: 'Boxing Gloves',
+    name: 'InnerFocus',
     purchased: false,
-    description: 'An old used pair of Boxing Gloves...',
+    description: 'Permanent +5 Crit.',
     baseDPS: 20,
     cost: 100,
     currentLevel: 0,
@@ -59,14 +61,15 @@ let upgrades = {
     ],
   },
 
-  orbCompanion: {
-    name: 'Orb',
-    description: 'An old Friend...',
+  orbPlus: {
+    name: 'Orb+',
+    description: 'More Juice!',
+    stat: '10% Sp.Atk DMG',
     baseDPS: 75,
     cost: 1000,
     currentLevel: 0,
     purchased: false,
-    image: `${images.upgrades.orb}`,
+    image: <OrbChargedAnimation />,
     boosters: [
       {
         label: 'Channel Energy',
@@ -99,8 +102,8 @@ let upgrades = {
   },
 
   busterSword: {
-    name: 'Buster Sword',
-    description: 'Industrial grade weapon made from a rare alloy...',
+    name: 'Auto Atk',
+    description: 'Auto Attacks Enemy every 2.5s',
     baseDPS: 200,
     cost: 5000,
     currentLevel: 0,

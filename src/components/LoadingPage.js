@@ -33,6 +33,7 @@ const LoadingPage = ({ setPlay }) => {
       justify="center"
       align="center"
       fontFamily="'VT323', monospace;"
+      filter="contrast(110%)"
     >
       <Flex
         w="50%"
@@ -56,7 +57,7 @@ const LoadingPage = ({ setPlay }) => {
             mb="30px"
             userSelect="none"
           >
-            Pxl-Clkr
+            .PXL
           </Text>
         ) : (
           ''

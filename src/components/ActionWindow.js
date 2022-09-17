@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import styled, { keyframes } from 'styled-components';
 import {
   Box,
   Flex,
@@ -15,8 +14,10 @@ import {
 import { GameDataContext } from '../context/GameDataContext';
 import special from '../lib/specialAttacks';
 import images from '../lib/images';
-import PlayerAnimation from '../lib/PlayerAnimation';
-
+import PlayerAnimation from '../lib/animations/PlayerAnimation';
+import EnemyIdleAnimation from '../lib/animations/enemyIdleAnimation';
+import OrbChargedAnimation from '../lib/animations/orbChargedAnimation';
+import OrbIdleAnimation from '../lib/animations/orbIdleAnimation.js';
 //Enemy hitBox
 const TargetHitBox = props => {
   const [params, setParam, setParams] = useContext(GameDataContext);
@@ -58,13 +59,11 @@ const TargetHitBox = props => {
           display="block"
           h="300px"
           w="300px"
-          bgSize="contain"
-          bgRepeat="no-repeat"
-          bgPosition="bottom"
-          bgImg={images.targets.ghost}
           onClick={props.click}
           cursor="crosshair"
-        ></Flex>
+        >
+          <EnemyIdleAnimation />
+        </Flex>
       </Flex>
     </Flex>
   );
@@ -105,7 +104,7 @@ const PlayerHitBox = props => {
           {props.playerHealth}/{props.playerMaxHealth}
         </Box>
       </Flex>
-      <Flex align="end" className="player" h="80%" w="100%">
+      <Flex align="end" className="player" h="80%">
         <PlayerAnimation />
       </Flex>
     </Flex>
@@ -603,11 +602,12 @@ const ActionWindow = () => {
       h="100%"
       flex="3 2 75%"
       w="75%"
-      bgImage={images.backgrounds.forestBg}
+      bgImage={images.backgrounds.levelbg}
       bgSize="cover"
       bgRepeat="no-repeat"
-      bgPosition="bottom"
+      bgPosition="0px 0px"
       position="relative"
+      style={{ imageRendering: 'pixelated' }}
     >
       <SpAtkContainer
         enabled={specialReady}
@@ -629,12 +629,21 @@ const ActionWindow = () => {
           justify="space-around"
           p="10px 100px"
         >
-          <PlayerHitBox
-            playerLevel={params.playerLevel}
-            playerHealth={params.playerCurrentHp}
-            playerMaxHealth={params.playerHp}
-            dps={params.dps}
-          />
+          <Flex h="100%" w="400px">
+            {specialReady === true ? (
+              <OrbChargedAnimation />
+            ) : (
+              <OrbIdleAnimation />
+            )}
+
+            <PlayerHitBox
+              playerLevel={params.playerLevel}
+              playerHealth={params.playerCurrentHp}
+              playerMaxHealth={params.playerHp}
+              dps={params.dps}
+            />
+          </Flex>
+
           <TargetHitBox
             level={params.enemyLevel}
             health={params.currentEnemyHp}

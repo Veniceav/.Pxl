@@ -40,7 +40,7 @@ const BuyBtn = props => {
     if (params.cells >= cost) {
       setParam('cells', params.cells - cost);
       setIsClicked(clicked => !clicked);
-      setParam('dps', params.dps + dmg);
+      setParam('dps', Math.round(params.dps * dmg));
       if (name === 'Auto Clicker') {
         upgradeData.auto.purchased = true;
         console.log(autoPurchased);
@@ -96,11 +96,13 @@ const BuyBtn = props => {
     <Button
       disabled={params.cells < cost || isClicked}
       variant="outline"
+      size="sm"
       colorScheme="white"
       position="relative"
+      mt="10px"
       top={isClicked ? '2px' : '0px'}
       right={isClicked ? '1px' : '0px'}
-      w={isClicked ? '100px' : '140px'}
+      w={isClicked ? '40px' : '80px'}
       borderLeft={isClicked ? '1px solid' : '2px Solid'}
       borderBottom={isClicked ? '2px solid' : '3px Solid'}
       backgroundColor={isClicked ? 'gray.100' : ''}
@@ -117,12 +119,19 @@ const BuyBtn = props => {
       onClick={() => handleClick()}
     >
       {/*Text inside of btn */}
-      {isClicked ? 'Sold' : `${cost} cells`}
+      {isClicked ? 'Sold' : `${cost}c`}
     </Button>
   );
 };
 
 const Card = props => {
+  const { name } = props;
+  const { bg } = props;
+  const { description } = props;
+  const { baseDPS } = props;
+  const { cost } = props;
+  const { stat } = props;
+
   return (
     <AccordionItem
       border="none"
@@ -147,50 +156,48 @@ const Card = props => {
           letterSpacing="2px"
           textTransform="uppercase"
         >
-          {props.name}
+          {name}
         </Box>
         <AccordionIcon />
       </AccordionButton>
 
-      <AccordionPanel
-        w="100%"
-        flexDirection="row"
-        display="flex"
-        pt="10px"
-        _hover={{ bg: 'none' }}
-      >
+      <AccordionPanel w="100%" flexDirection="row" display="flex" pt="10px">
         <Flex
-          className="item-img"
+          className="img-cost"
           justify="center"
           align="center"
+          direction="column"
           w="30%"
           h="100%"
         >
-          <img
-            src={props.bg}
-            style={{
-              imageRendering: 'pixelated',
-              width: '100%',
-              height: '100%',
-            }}
-          />
+          <Flex position="relative" top="-90" left="-10" h="80px">
+            {bg}
+          </Flex>
+          <BuyBtn cost={cost} name={name} dmg={baseDPS} />
         </Flex>
         <Flex
           direction="column"
           align="center"
-          className="item-details"
+          justify="center"
           w="100%"
-          h="100%"
+          className="item-details"
         >
           <Box
             className="item-description"
             textAlign="center"
             fontSize="l"
-            mb="10px"
+            pb="10px"
           >
-            {props.description}
+            {description}
           </Box>
-          <BuyBtn cost={props.cost} name={props.name} dmg={props.baseDPS} />
+          <Box
+            className="stat-boost"
+            textAlign="center"
+            fontSize="sm"
+            pt="10px"
+          >
+            {stat}
+          </Box>
         </Flex>
       </AccordionPanel>
     </AccordionItem>
@@ -275,7 +282,7 @@ const Inventory = () => {
         </Flex>
         <Accordion allowToggle className="item-cards">
           {Object.keys(upgradeData).map(u => {
-            const { image, name, description, cost, baseDPS, purchased } =
+            const { image, name, description, cost, stat, baseDPS, purchased } =
               upgradeData[u];
             return (
               <Card
@@ -283,6 +290,7 @@ const Inventory = () => {
                 bg={image}
                 name={name}
                 description={description}
+                stat={stat}
                 cost={cost}
                 baseDPS={baseDPS}
                 purchased={purchased}
