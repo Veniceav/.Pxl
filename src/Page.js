@@ -11,7 +11,7 @@ const Page = () => {
       bg="#111"
       color="whiteAlpha.800"
       fontFamily="'VT323', monospace;"
-      filter="contrast(115%)"
+      filter="contrast(107%)"
     >
       <Banner />
       <GameWindow />

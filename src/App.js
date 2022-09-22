@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import theme from './lib/theme';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Page from './Page';
 import LoadingPage from './components/LoadingPage';
 

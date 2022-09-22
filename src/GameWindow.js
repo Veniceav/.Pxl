@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { Flex } from '@chakra-ui/react';
 import { GameDataContext } from './context/GameDataContext';
-import ActionWindow from './components/ActionWindow';
+import ActionWindow from './components/action-window/ActionWindow';
 import Inventory from './components/Inventory';
 
 const GameWindow = () => {
@@ -32,21 +32,7 @@ const GameWindow = () => {
 
   return (
     <Flex bgColor="#111" h="95%" w="100%" flexWrap="wrap">
-      <GameDataContext.Provider
-        value={[params, setProp, setParams]}
-        // value={{
-        //   health,
-        //   setHealth,
-        //   dps,
-        //   setDps,
-        //   cells,
-        //   setCells,
-        //   maxHealth,
-        //   setMaxHealth,
-        //   level,
-        //   setLevel,
-        // }}
-      >
+      <GameDataContext.Provider value={[params, setProp, setParams]}>
         <ActionWindow />
         <Inventory />
       </GameDataContext.Provider>

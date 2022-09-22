@@ -20,31 +20,18 @@ const retroPurple = '#7A18EC';
 
 const BuyBtn = props => {
   const [isClicked, setIsClicked] = useState(false);
-  const {
-    cells,
-    setCells,
-    dps,
-    setDps,
-    health,
-    setHealth,
-    purchased,
-    setPurchased,
-  } = useContext(GameDataContext);
-  const [autoPurchased, setAutoPurchased] = useState(false);
+
   const [params, setParam, setParams] = useContext(GameDataContext);
   const { cost } = props;
   const { dmg } = props;
   const { name } = props;
+  const { purchased } = props;
 
   const purchaseItem = () => {
     if (params.cells >= cost) {
       setParam('cells', params.cells - cost);
       setIsClicked(clicked => !clicked);
       setParam('dps', Math.round(params.dps * dmg));
-      if (name === 'Auto Clicker') {
-        upgradeData.auto.purchased = true;
-        console.log(autoPurchased);
-      }
     } else {
       const difference = cost - params.cells;
       alert('You need ' + difference + ' more cells!');
@@ -70,16 +57,9 @@ const BuyBtn = props => {
   //respawn Enemy
   const respawn = () => {
     getHealth();
-    //add enemy image change
   };
 
   useEffect(() => {
-    if (upgradeData.auto.purchased === true) {
-      console.log('purchased');
-      setInterval(() => {
-        setParam('health', params.health - 1);
-      }, 500);
-    }
     if (params.health <= 0) {
       console.log('Enemy Taken Down!');
       giveCells();
@@ -269,9 +249,9 @@ const Inventory = () => {
     >
       <Flex direction="column" className="upgrades" minH="300px" h="100%">
         <Flex
+          className="banner"
           justify="center"
           align="center"
-          className="banner"
           h="15%"
           borderBottom={`1px solid ${retroRed}`}
           color={retroRed}

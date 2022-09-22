@@ -11,63 +11,16 @@ import {
   TabPanel,
   TabPanels,
 } from '@chakra-ui/react';
-import { GameDataContext } from '../context/GameDataContext';
-import special from '../lib/specialAttacks';
-import images from '../lib/images';
-import PlayerAnimation from '../lib/animations/PlayerAnimation';
-import EnemyIdleAnimation from '../lib/animations/enemyIdleAnimation';
-import OrbChargedAnimation from '../lib/animations/orbChargedAnimation';
-import OrbIdleAnimation from '../lib/animations/orbIdleAnimation.js';
+import { GameDataContext } from '../../context/GameDataContext';
+import special from '../../lib/specialAttacks';
+import images from '../../lib/images';
+import PlayerAnimation from '../../lib/animations/PlayerAnimation';
+import EnemyIdleAnimation from '../../lib/animations/enemyIdleAnimation';
+import OrbChargedAnimation from '../../lib/animations/orbChargedAnimation';
+import OrbIdleAnimation from '../../lib/animations/orbIdleAnimation.js';
+import TargetHitBox from './components/TargetHitBox';
+
 //Enemy hitBox
-const TargetHitBox = props => {
-  const [params, setParam, setParams] = useContext(GameDataContext);
-
-  return (
-    <Flex
-      fontSize="xl"
-      direction="column"
-      h="100%"
-      minW="200px"
-      color="whiteAlpha.900"
-      align="center"
-    >
-      <Flex className="charInfo" direction="column" align="center">
-        <Flex align="center">
-          <CircularProgress
-            thickness="5px"
-            size="55px"
-            value={params.enemyActionBar}
-            color="game.retroRed"
-          />
-          <Flex direction="column">
-            <Box className="enemyLevel" margin="0 5px">
-              Lvl. {props.level}
-            </Box>
-            <Box className="enemyDamage" margin="0 5px">
-              Atk: {props.enemyDamage}
-            </Box>
-          </Flex>
-        </Flex>
-
-        <Box className="hpNum">
-          {props.health}/{props.maxHealth}
-        </Box>
-      </Flex>
-
-      <Flex className="target" h="60%" w="100%">
-        <Flex
-          display="block"
-          h="300px"
-          w="300px"
-          onClick={props.click}
-          cursor="crosshair"
-        >
-          <EnemyIdleAnimation />
-        </Flex>
-      </Flex>
-    </Flex>
-  );
-};
 
 //Player Character hitbox
 const PlayerHitBox = props => {
@@ -78,7 +31,6 @@ const PlayerHitBox = props => {
       fontSize="xl"
       direction="column"
       h="100%"
-      minW="200px"
       color="whiteAlpha.900"
       align="center"
     >
@@ -178,13 +130,16 @@ const SpAtkContainer = props => {
   return (
     <Flex
       direction="column"
-      w="55%"
+      maxW="100%"
+      minW="55%"
       minH="250px"
+      maxH="100%"
       bg="rgba(15, 15, 15, 0.8)"
       borderBottom="1px"
       borderColor="rgba(80, 80, 80, 0.7)"
       position="absolute"
       transition="0.2s linear"
+      zIndex={1}
       top={0}
       left={enabled === true ? '0' : '-650px'}
     >
@@ -193,8 +148,8 @@ const SpAtkContainer = props => {
           Special Ready
         </Text>
       </Flex>
-      <Tabs isFitted>
-        <TabList>
+      <Tabs display="flex" flexDirection="column" isFitted>
+        <TabList flexShrink={1} w="100%">
           {Object.keys(special).map(u => {
             const { name, variant } = special[u];
             let color =
@@ -207,6 +162,7 @@ const SpAtkContainer = props => {
                 : '';
             return (
               <Tab
+                minW="25%"
                 isFitted
                 key={name}
                 name={name}
@@ -224,7 +180,7 @@ const SpAtkContainer = props => {
             );
           })}
         </TabList>
-        <TabPanels h="100%" w="100%">
+        <TabPanels flexShrink={1} h="100%" w="100%" minH="0px">
           {Object.keys(special).map(u => {
             const { name, description, variant } = special[u];
 
@@ -267,7 +223,7 @@ const SpAtkContainer = props => {
 
             return (
               <TabPanel
-                p="10px 10px"
+                p="0px 10px"
                 key={name}
                 name={name}
                 description={description}
@@ -277,7 +233,6 @@ const SpAtkContainer = props => {
                 duration={variant.duration}
                 value={variant.modifier.value}
               >
-                {' '}
                 <Box
                   flex={1}
                   textAlign="left"
