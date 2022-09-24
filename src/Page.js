@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from './components/Banner';
 import GameWindow from './GameWindow';
 import { Box, Flex, HStack } from '@chakra-ui/react';

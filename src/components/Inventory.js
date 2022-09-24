@@ -234,8 +234,6 @@ const Bank = props => {
 };
 
 const Inventory = () => {
-  const { cells, setCells } = useContext(GameDataContext);
-  const { dps, setDps } = useContext(GameDataContext);
   const [params, setParam, setParams] = useContext(GameDataContext);
 
   return (
@@ -243,9 +241,8 @@ const Inventory = () => {
       className="inventory"
       direction="column"
       flex="1 1 25%"
-      minW="300px"
+      minW="218px"
       bgColor="#111"
-      borderTop="1px solid rgba(200, 0, 0, .2)"
     >
       <Flex direction="column" className="upgrades" minH="300px" h="100%">
         <Flex
