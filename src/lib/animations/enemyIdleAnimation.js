@@ -3,14 +3,14 @@ import styled, { keyframes } from 'styled-components';
 
 const enemyAnimation = keyframes` 
 from {
-    background-position: -30px; }
-to { background-position: -9030px 
+    background-position: -100px; }
+to { background-position: -9099px 
 }`;
 
 const enemyIdleAnimation = styled.div`
   position: relative;
-  top: 40px;
-  left: 0px;
+  top: 0px;
+  left: 40px;
   image-rendering: pixelated;
   background-image: url(${images.targets.enemyIdle});
   background-size: cover;

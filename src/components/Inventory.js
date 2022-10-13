@@ -241,8 +241,8 @@ const Inventory = () => {
       className="inventory"
       direction="column"
       flex="1 1 25%"
-      minW="218px"
-      bgColor="#111"
+      minW="250px"
+      bgColor="rgba(15, 15, 15, 0.8)"
     >
       <Flex direction="column" className="upgrades" minH="300px" h="100%">
         <Flex

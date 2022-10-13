@@ -5,7 +5,7 @@ import DesktopView from './viewType/DesktopView';
 import specials from '../lib/specialAttacks';
 import { GameDataContext } from '../context/GameDataContext';
 
-const useMobile = (width = 425) => {
+const useMobile = (width = 500) => {
   const [mobile, setMobile] = useState(
     window.matchMedia(`(max-width: ${width}px)`).matches
   );
@@ -244,7 +244,12 @@ const ViewType = () => {
   return (
     <Flex w="100%" h="100%">
       {isMobile ? (
-        <MobileView />
+        <MobileView
+          click={click}
+          specialReady={specialReady}
+          setSpecialReady={setSpecialReady}
+          setPlayerBarProgress={setPlayerBarProgress}
+        />
       ) : (
         <DesktopView
           click={click}

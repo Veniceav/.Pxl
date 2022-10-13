@@ -10,7 +10,7 @@ const Banner = () => {
   });
 
   return (
-    <Box h="5%" display={checkWindow === 425 ? 'none' : ''}>
+    <Box h="5%" w="100%" display={checkWindow === 425 ? 'none' : ''}>
       <Text textAlign="center" fontSize="3xl" textTransform="Uppercase">
         .Pxl
       </Text>

@@ -11,7 +11,7 @@ const TargetHitBox = props => {
       fontSize="xl"
       direction="column"
       h="100%"
-      minW="200px"
+      minW="100px"
       color="whiteAlpha.900"
       align="center"
     >
@@ -42,7 +42,7 @@ const TargetHitBox = props => {
         <Flex
           display="block"
           h="300px"
-          w="300px"
+          w="150px"
           onClick={props.click}
           cursor="crosshair"
         >

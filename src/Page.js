@@ -13,7 +13,6 @@ const Page = () => {
       fontFamily="'VT323', monospace;"
       filter="contrast(107%)"
     >
-      <Banner />
       <GameWindow />
     </Box>
   );

@@ -8,6 +8,7 @@ import TargetHitBox from './components/TargetHitBox';
 import PlayerHitBox from './components/PlayerHitBox';
 import SpAtkContainer from './components/SpAtkContainer';
 import Inventory from '../Inventory';
+import Banner from '../Banner';
 
 const DesktopView = props => {
   const [params, setParam, setParams] = useContext(GameDataContext);
@@ -18,10 +19,11 @@ const DesktopView = props => {
 
   return (
     <Flex w="100%" flexWrap="wrap">
+      <Banner />
       <Flex
         className="Action-Window"
         direction="column"
-        h="100%"
+        h="95%"
         flex="3 2 75%"
         w="75%"
         bgImage={images.backgrounds.levelbg}
