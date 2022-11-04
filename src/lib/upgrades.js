@@ -5,8 +5,8 @@ let upgrades = {
   spark: {
     name: 'Spark of Genius',
     description: 'Channel and Generate more energy.',
-    stat: '10% Atk Dmg',
-    baseDPS: 1.1,
+    stat: '+20 Atk Dmg',
+    baseDPS: 20,
     cost: 50,
     currentLevel: 0,
     purchased: false,

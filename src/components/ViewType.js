@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Flex } from '@chakra-ui/react';
 import MobileView from './viewType/MobileView';
 import DesktopView from './viewType/DesktopView';
-import specials from '../lib/specialAttacks';
 import { GameDataContext } from '../context/GameDataContext';
 
 const useMobile = (width = 500) => {
@@ -24,6 +22,27 @@ const useMobile = (width = 500) => {
   return [mobile];
 };
 
+const ConditionalWrapperGlobal = props => {
+  const {
+    isMobile,
+    click,
+    specialReady,
+    setSpecialReady,
+    setPlayerBarProgress,
+  } = props;
+  const Wrapper = isMobile ? MobileView : DesktopView;
+
+  return (
+    <Wrapper
+      isMobile={isMobile}
+      click={click}
+      specialReady={specialReady}
+      setSpecialReady={setSpecialReady}
+      setPlayerBarProgress={setPlayerBarProgress}
+    />
+  );
+};
+
 const ViewType = () => {
   const [params, setParam, setParams] = useContext(GameDataContext);
   const [buildup, setBuildup] = useState(true);
@@ -34,7 +53,7 @@ const ViewType = () => {
   //player action bar
   useEffect(() => {
     if (playerBarProgress) {
-      console.log('p1: ' + params.playerActionBar);
+      // console.log('p1: ' + params.playerActionBar);
       const interval = setInterval(() => {
         setParams(p => {
           const newVal =
@@ -58,7 +77,7 @@ const ViewType = () => {
 
   //Enemy Action Bar Build
   useEffect(() => {
-    console.log(params.enemyActionBar);
+    // console.log(params.enemyActionBar);
     const interval = setInterval(() => {
       if (params.enemyActionBar >= 100) {
         setParams(p => {
@@ -95,14 +114,14 @@ const ViewType = () => {
         params.playerActionBar + params.playerBarBase
       );
     }
-    console.log(currentHp + ' Hp left');
+    // console.log(currentHp + ' Hp left');
     if (params.playerActionBar >= 100) {
       setSpecialReady(true);
     }
   };
 
   const payout = () => {
-    console.log('Enemy Taken Down!');
+    // console.log('Enemy Taken Down!');
     giveCells();
     giveExp();
     setParam('enemyActionBar', 0);
@@ -156,7 +175,7 @@ const ViewType = () => {
 
   const giveExp = () => {
     const expGiven = Math.round((params.enemyHp * 0.55) / 2);
-    console.log(expGiven + ' Exp Recieved');
+    // console.log(expGiven + ' Exp Recieved');
     setParam('currentExp', params.currentExp + expGiven);
   };
 
@@ -190,7 +209,7 @@ const ViewType = () => {
         currentEnemyHp: newHp,
       };
     });
-    console.log('Enemy Health: ' + newMaxHp);
+    // console.log('Enemy Health: ' + newMaxHp);
   };
 
   const getDamage = () => {
@@ -218,7 +237,7 @@ const ViewType = () => {
 
   const giveCells = () => {
     let cellsGiven = Math.round(params.enemyHp / 2);
-    console.log(cellsGiven + ' Cells Recieved');
+    // console.log(cellsGiven + ' Cells Recieved');
     setParam('cells', cellsGiven + params.cells);
   };
 
@@ -242,23 +261,13 @@ const ViewType = () => {
   }, []);
 
   return (
-    <Flex w="100%" h="100%">
-      {isMobile ? (
-        <MobileView
-          click={click}
-          specialReady={specialReady}
-          setSpecialReady={setSpecialReady}
-          setPlayerBarProgress={setPlayerBarProgress}
-        />
-      ) : (
-        <DesktopView
-          click={click}
-          specialReady={specialReady}
-          setSpecialReady={setSpecialReady}
-          setPlayerBarProgress={setPlayerBarProgress}
-        />
-      )}
-    </Flex>
+    <ConditionalWrapperGlobal
+      isMobile={isMobile}
+      click={click}
+      specialReady={specialReady}
+      setSpecialReady={setSpecialReady}
+      setPlayerBarProgress={setPlayerBarProgress}
+    />
   );
 };
 

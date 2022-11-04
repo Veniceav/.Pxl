@@ -38,10 +38,9 @@ const TargetHitBox = props => {
         </Box>
       </Flex>
 
-      <Flex className="target" h="60%" w="100%">
+      <Flex className="target" h="100%" w="100%">
         <Flex
           display="block"
-          h="300px"
           w="150px"
           onClick={props.click}
           cursor="crosshair"

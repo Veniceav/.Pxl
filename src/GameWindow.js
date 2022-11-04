@@ -1,9 +1,7 @@
 import { React, useState } from 'react';
 import { Flex } from '@chakra-ui/react';
 import { GameDataContext } from './context/GameDataContext';
-import DesktopView from './components/viewType/DesktopView';
 import ViewType from './components/ViewType';
-import Inventory from './components/Inventory';
 
 const GameWindow = () => {
   const [params, setParams] = useState({

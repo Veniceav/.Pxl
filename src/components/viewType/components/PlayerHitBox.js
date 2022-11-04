@@ -21,6 +21,9 @@ const PlayerHitBox = props => {
             size="55px"
             value={params.playerActionBar}
             color="game.retroPurple"
+            filter={
+              params.playerActionBar < 100 ? 'contrast(50%)' : 'contrast(100%)'
+            }
           />
           <Flex direction="column">
             <Box className="enemyLevel" margin="0 5px">

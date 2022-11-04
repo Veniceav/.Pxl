@@ -6,16 +6,19 @@ import OrbChargedAnimation from '../../lib/animations/orbChargedAnimation';
 import OrbIdleAnimation from '../../lib/animations/orbIdleAnimation.js';
 import TargetHitBox from './components/TargetHitBox';
 import PlayerHitBox from './components/PlayerHitBox';
-import SpAtkContainer from './components/SpAtkContainer';
 import Inventory from '../Inventory';
 import Banner from '../Banner';
+import SpContainer from './components/SpContainer';
 
 const DesktopView = props => {
-  const [params, setParam, setParams] = useContext(GameDataContext);
-  const { click } = props;
-  const { specialReady } = props;
-  const { setSpecialReady } = props;
-  const { setPlayerBarProgress } = props;
+  const [params] = useContext(GameDataContext);
+  const {
+    click,
+    isMobile,
+    specialReady,
+    setSpecialReady,
+    setPlayerBarProgress,
+  } = props;
 
   return (
     <Flex w="100%" flexWrap="wrap">
@@ -33,7 +36,8 @@ const DesktopView = props => {
         position="relative"
         style={{ imageRendering: 'pixelated' }}
       >
-        <SpAtkContainer
+        <SpContainer
+          isMobile={isMobile}
           enabled={specialReady}
           setProgress={setPlayerBarProgress}
           setSpecialReady={setSpecialReady}

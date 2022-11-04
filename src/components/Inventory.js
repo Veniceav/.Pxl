@@ -20,12 +20,8 @@ const retroPurple = '#7A18EC';
 
 const BuyBtn = props => {
   const [isClicked, setIsClicked] = useState(false);
-
   const [params, setParam, setParams] = useContext(GameDataContext);
-  const { cost } = props;
-  const { dmg } = props;
-  const { name } = props;
-  const { purchased } = props;
+  const { cost, dmg } = props;
 
   const purchaseItem = () => {
     if (params.cells >= cost) {
@@ -185,6 +181,7 @@ const Card = props => {
 };
 
 const Bank = props => {
+  const { cells } = props;
   const [params] = useContext(GameDataContext);
   return (
     <Flex direction="column" align="center" justify="center">
@@ -226,7 +223,7 @@ const Bank = props => {
           Bank
         </Text>
         <Text textAlign="center" fontSize="2xl" textTransform="uppercase">
-          Cells: {props.cells}
+          Cells: {cells}
         </Text>
       </Box>
     </Flex>
