@@ -77,11 +77,11 @@ const TabContainer = props => {
       const updatedCurrentHp = params.playerCurrentHp + specialHlgValue(value);
       if (updatedCurrentHp >= params.playerHp) {
         const amountRestoredOP = updatedCurrentHp - params.playerHp;
-        console.log(amountRestoredOP + 'hp restored');
+        // console.log(amountRestoredOP + 'hp restored');
         setParam('playerCurrentHp', params.playerHp);
       } else {
         const amountRestored = updatedCurrentHp;
-        console.log(amountRestored + 'hp restored');
+        // console.log(amountRestored + 'hp restored');
         setParam('playerCurrentHp', updatedCurrentHp);
       }
     };

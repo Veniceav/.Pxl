@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChakraProvider, Box } from '@chakra-ui/react';
+import { ChakraProvider, Box, Flex } from '@chakra-ui/react';
 import theme from './lib/theme';
 import Page from './Page';
 import LoadingPage from './components/LoadingPage';
@@ -10,7 +10,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       {play ? (
-        <Box>
+        <Box w="100vw" h="100vh">
           <Page />
         </Box>
       ) : (

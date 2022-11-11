@@ -36,7 +36,7 @@ const BuyBtn = props => {
 
   const giveCells = () => {
     let cellsGiven = Math.round(params.maxHealth / 2);
-    console.log(cellsGiven + 'Cells Recieved');
+    // console.log(cellsGiven + 'Cells Recieved');
     setParam('cells', params.cells + cellsGiven);
   };
 
@@ -47,7 +47,7 @@ const BuyBtn = props => {
     );
     setParam('health', newMaxHp);
     setParam('maxHealth', newMaxHp);
-    console.log('Enemy Health: ' + newMaxHp);
+    // console.log('Enemy Health: ' + newMaxHp);
   };
 
   //respawn Enemy
@@ -57,7 +57,7 @@ const BuyBtn = props => {
 
   useEffect(() => {
     if (params.health <= 0) {
-      console.log('Enemy Taken Down!');
+      // console.log('Enemy Taken Down!');
       giveCells();
       setParam('level', params.level + 1);
       respawn();
@@ -239,6 +239,7 @@ const Inventory = () => {
       direction="column"
       flex="1 1 25%"
       minW="250px"
+      h="100%"
       bgColor="rgba(15, 15, 15, 0.8)"
     >
       <Flex direction="column" className="upgrades" minH="300px" h="100%">

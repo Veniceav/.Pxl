@@ -16,8 +16,8 @@ let upgrades = {
   innerFocus: {
     name: 'InnerFocus',
     purchased: false,
-    description: 'Permanent +5 Crit.',
-    baseDPS: 20,
+    description: 'Permanent +20%  ATK DMG.',
+    baseDPS: 0.2,
     cost: 100,
     currentLevel: 0,
     image: `${images.upgrades.boxingGloves}`,

@@ -21,12 +21,10 @@ const DesktopView = props => {
   } = props;
 
   return (
-    <Flex w="100%" flexWrap="wrap">
-      <Banner />
+    <Flex w="100%" h="100%" flexWrap="wrap">
       <Flex
         className="Action-Window"
         direction="column"
-        h="95%"
         flex="3 2 75%"
         w="75%"
         bgImage={images.backgrounds.levelbg}
@@ -46,7 +44,7 @@ const DesktopView = props => {
           direction="column"
           className="InteractiveWindow"
           flex="5 1 750px"
-          h="90%"
+          h="80%"
           p="80px 0px"
           justify="end"
         >
